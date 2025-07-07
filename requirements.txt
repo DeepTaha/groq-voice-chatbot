@@ -1,0 +1,7 @@
+gradio
+openai-whisper
+gtts
+groq
+torch
+torchaudio
+ffmpeg-python
