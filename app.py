@@ -8,7 +8,6 @@ import uuid
 
 # Constants
 MODEL_NAME = "llama3-70b-8192"
-GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
 
 # Load Whisper model once
 whisper_model = whisper.load_model("base")
@@ -19,6 +18,10 @@ def process_audio(audio_filepath):
     user_input = result["text"]
 
     # Step 2: Get response from Groq
+    GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
+    if not GROQ_API_KEY:
+        raise ValueError("❌ GROQ_API_KEY not found. Please set it in Hugging Face Secrets.")
+
     client = Groq(api_key=GROQ_API_KEY)
     chat_completion = client.chat.completions.create(
         messages=[{"role": "user", "content": user_input}],
